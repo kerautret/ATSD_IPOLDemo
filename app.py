@@ -21,7 +21,7 @@ class app(base_app):
     xlink_src = 'http://www.ipol.im/pub/pre/67/gjknd_1.1.tgz'
     dgtal_src = 'https://github.com/kerautret/DGtal.git'
     demo_src_filename  = 'gjknd_1.1.tgz'
-    demo_src_dir = 'ATC_IPOLDemo'
+    demo_src_dir = 'ATSD_IPOLDemo'
 
 
     input_nb = 1 # number of input images
