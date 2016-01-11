@@ -161,8 +161,8 @@ class app(base_app):
             ar.add_file("input_0.png", "original.png", info="uploaded")
             ar.add_file("algoLog.txt", info="algoLog.txt")
             ar.add_file("commands.txt", info="commands.txt")
-            ar.add_file("outputATC.png", "outputATC.png", info="outputATC.png")
-            ar.add_file("outputPolygon.png", "outputPolygon.png", info="outputPolygon.png")
+            ar.add_file("outputATSD.png", "outputATSD.png", info="outputATSD.png")
+            ar.add_file("outputPolygon.sdp", "outputPolygon.png", info="outputPolygon.png")
             ar.add_info({"version": self.cfg['param']["version"]})
             ar.save()
 
@@ -193,7 +193,7 @@ class app(base_app):
         inputWidth = image(self.work_dir + 'input_0.png').size[0]
         inputHeight = image(self.work_dir + 'input_0.png').size[1]
         command_args = ['lineDetectATS'] + \
-                       [ '-i', 'inputNG.pgm', '-o', 'res.eps', '-e', "res.sdp"]
+                       [ '-i', 'inputNG.pgm', '-o', 'res.eps', '-e', "outputContours.sdp"]
         f = open(self.work_dir+"algoLog.txt", "a")
         cmd = self.runCommand(command_args, None, f)
         f.close()
@@ -208,7 +208,7 @@ class app(base_app):
                         'res.eps', '-geometry', str(widthDisplay)+"x", 'outputATSD.png']
         self.runCommand(command_args, None, fInfo)
         shutil.copy(self.work_dir + os.path.join("res.eps"), 
-                    self.work_dir + os.path.join("outputATSD.png"))
+                    self.work_dir + os.path.join("outputATSD.eps"))
         fInfo.close()
         
         ## ------

@@ -10,7 +10,7 @@
 (determined automatically by the Otsu algorithm)
 %endif
 </li>
-<li>  minimal contour size <font color="blue"><i>m</i></font>: ${app.cfg['param']['m']}  </li>
+<li>  blur filter size <font color="blue"><i>sigma</i></font>: ${app.cfg['param']['sigma']}  </li>
 </ul>
 </p>
 
@@ -45,7 +45,7 @@
 
 <h2>Result</h2>
 
-<p>You can download the resulting ATC in  <a href="${app.work_url+'outputATC.eps'}">eps</a> format, or download the  <a href="${app.work_url+'inputPolygon.sdp'}">input </a> with the resulting polygon in <a href="${app.work_url+'outputPolygon.eps'}">eps</a>  format </p>
+<p>You can download the resulting ATC in  <a href="${app.work_url+'outputATSD.eps'}">eps</a> format, or download the the resulting contours in <a href="${app.work_url+'outputContours.sdp}">sdp</a>  format </p>
 
 
 <div class="gallery" style="height:${height}px">
@@ -60,14 +60,7 @@
     <li>
       <a href="${app.work_url+'outputATC.png'}">outputATC.png
 	<span>
-	  <img  height="${height}" src="${app.work_url + 'outputATC.png'}" alt="output ATC" />
-	</span>
-      </a>
-    </li>
-    <li>
-      <a href="${app.work_url+'outputPolygon.png'}">outputPolygon.png
-	<span>
-	  <img  height="${height}" src="${app.work_url + 'outputPolygon.png'}" alt="output polygon" />
+	  <img  height="${height}" src="${app.work_url + 'outputATSD.png'}" alt="output ATC" />
 	</span>
       </a>
     </li>
