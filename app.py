@@ -120,11 +120,11 @@ class app(base_app):
 
         # save and validate the parameters
         try:
-            self.cfg['param']['m'] = kwargs['m']
+            self.cfg['param']['sigma'] = kwargs['sigma']
             self.cfg['param']['tmin'] = kwargs['tmin']
             self.cfg['param']['tmax'] = kwargs['tmax']
             self.cfg['param']['autothreshold'] =  kwargs['thresholdtype'] == 'True'
-
+            
             self.cfg.save()
         except ValueError:
             return self.error(errcode='badparams',
@@ -188,90 +188,34 @@ class app(base_app):
         self.runCommand(command_args)
 
         ##  -------
-        ## process 2: extract contour files
+        ## process 2: apply the line detection algorithm
         ## ---------
-        f = open(self.work_dir+"inputPolygon.txt", "w")
-        fInfo = open(self.work_dir+"algoLog.txt", "w")
-        command_args = ['img2freeman']+\
-                       ['--minSize', str(self.cfg['param']['m'])]+\
-                       ['--sort', '-i', 'inputNG.pgm']
-                       
-        if not self.cfg['param']['autothreshold']:
-            command_args += ['-M', str(self.cfg['param']['tmax'])]+ \
-           					['-m', str(self.cfg['param']['tmin'])]
 
-        cmd = self.runCommand(command_args, f, fInfo, \
-                              comp = ' > inputPolygon.txt')
-
-        if os.path.getsize(self.work_dir+"inputPolygon.txt") == 0:
-            raise ValueError
-        fInfo.close()
-        fInfo = open(self.work_dir+"algoLog.txt", "r")
-
-        #Recover otsu max value from output
-        if self.cfg['param']['autothreshold']:
-            lines = fInfo.readlines()
-            line_cases = lines[0].replace(")", " ").split()
-            self.cfg['param']['tmax'] = int(line_cases[17])
-
-        singleContour = open(self.work_dir+"singleContour.fc", 'w')
-        f = open(self.work_dir+"inputPolygon.txt", "r")
-        line = f.read()
-        singleContour.write(line+"\n")
-        singleContour.close()
-        
-        f = open(self.work_dir+"inputPolygon.sdp", "w")
-        fInfo = open(self.work_dir+"algoLog.txt", "a")
-        command_args = ['freeman2sdp']+\
-                       ['-f', 'singleContour.fc']
-                       
-        
-        cmd = self.runCommand(command_args, f, fInfo, \
-                              comp = ' > inputPolygon.sdp')
-
-        f.close()
-        fInfo.close()
-
-
-        ##  -------
-        ## process 3: apply algorithm
-        ## ---------
         inputWidth = image(self.work_dir + 'input_0.png').size[0]
         inputHeight = image(self.work_dir + 'input_0.png').size[1]
-        command_args = ['testMultiScaleDominantPoint'] + \
-                       [ '-i', 'inputPolygon.sdp', '-d', self.base_dir + \
-                         os.path.join('srcManual/') + os.path.join('ImaGene-forIPOL')] + \
-                       ['-e'] + ['--sourceImageWidth', str(inputWidth)]+ \
-                       ['--sourceImageHeight', str(inputHeight)]
+        command_args = ['lineDetectATS'] + \
+                       [ '-i', 'inputNG.pgm', '-o', 'res.eps', '-e', "res.sdp"]
         f = open(self.work_dir+"algoLog.txt", "a")
         cmd = self.runCommand(command_args, None, f)
         f.close()
 
 
         ## ---------
-        ## process 4: converting to output result
+        ## process 3: converting to output result
         ## ---------
         widthDisplay = max(inputWidth, 512)
         fInfo = open(self.work_dir+"algoLog.txt", "a")
         command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
-                        'inputPolygonATC_Step4.eps', '-geometry', str(widthDisplay)+"x", 'outputATC.png']
+                        'res.eps', '-geometry', str(widthDisplay)+"x", 'outputATSD.png']
         self.runCommand(command_args, None, fInfo)
-        shutil.copy(self.work_dir + os.path.join("inputPolygonATC_Step4.eps"), 
-                    self.work_dir + os.path.join("outputATC.eps"))
-        ## ---------
-        fInfo = open(self.work_dir+"algoLog.txt", "a")
-        command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
-                        'inputPolygon_DPnew.eps','-geometry', str(widthDisplay)+"x", 'outputPolygon.png']
-        shutil.copy(self.work_dir + os.path.join("inputPolygon_DPnew.eps"), 
-                    self.work_dir + os.path.join("outputPolygon.eps"))
-
-        self.runCommand(command_args, None, fInfo)
+        shutil.copy(self.work_dir + os.path.join("res.eps"), 
+                    self.work_dir + os.path.join("outputATSD.png"))
         fInfo.close()
         
         ## ------
         # Save version num:
         fVersion = open(self.work_dir+"version.txt", "w")
-        command_args = ['testMultiScaleDominantPoint', '--version']
+        command_args = ['lineDetectATS', '--version']
         self.runCommand(command_args, None, fVersion)
         fVersion.close()
         f = open(self.work_dir+"version.txt", "r")
