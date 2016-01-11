@@ -194,9 +194,9 @@ class app(base_app):
         inputHeight = image(self.work_dir + 'input_0.png').size[1]
         command_args = ['lineDetectATS'] + \
                        [ '-i', 'inputNG.pgm', '-o', 'res.eps', '-e', "outputContours.sdp"] + \
-                       ['-s', str(self.cfg['param']['sigma'])] + \
-                       ['-l', str(self.cfg['param']['tmin'])] + \
-                       ['-h', str(self.cfg['param']['tmax'])] 
+                       ['-s', str(self.cfg['param']['sigma'])]] + \
+                       ['-l', str(self.cfg['param']['tmin'])]] + \
+                       ['-h', str(self.cfg['param']['tmax'])]]
                        
         
         f = open(self.work_dir+"algoLog.txt", "a")
