@@ -123,7 +123,6 @@ class app(base_app):
             self.cfg['param']['sigma'] = kwargs['sigma']
             self.cfg['param']['tmin'] = kwargs['tmin']
             self.cfg['param']['tmax'] = kwargs['tmax']
-            self.cfg['param']['autothreshold'] =  kwargs['thresholdtype'] == 'True'
             
             self.cfg.save()
         except ValueError:
