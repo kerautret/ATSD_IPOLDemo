@@ -162,7 +162,7 @@ class app(base_app):
             ar.add_file("algoLog.txt", info="algoLog.txt")
             ar.add_file("commands.txt", info="commands.txt")
             ar.add_file("outputATSD.png", "outputATSD.png", info="outputATSD.png")
-            ar.add_file("outputPolygon.sdp", "outputPolygon.png", info="outputPolygon.png")
+            ar.add_file("outputContours.sdp", "outputContours.sdp", info="outputContours.sdp")
             ar.add_info({"version": self.cfg['param']["version"]})
             ar.save()
 
