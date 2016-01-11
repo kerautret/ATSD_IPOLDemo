@@ -195,7 +195,7 @@ class app(base_app):
         command_args = ['lineDetectATS'] + \
                        [ '-i', 'inputNG.pgm', '-o', 'res.eps', '-e', "outputContours.sdp"] + \
                        ['-s', str(self.cfg['param']['sigma'])] + \
-                       ['--lowTh ', str(self.cfg['param']['tmin'])] + \
+                       ['--lowTh', str(self.cfg['param']['tmin'])] + \
                        ['--highTh', str(self.cfg['param']['tmax'])]
                        
         
