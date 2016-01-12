@@ -164,6 +164,9 @@ class app(base_app):
             ar.add_file("outputATSD.png", "outputATSD.png", info="outputATSD.png")
             ar.add_file("outputContours.sdp", "outputContours.sdp", info="outputContours.sdp")
             ar.add_info({"version": self.cfg['param']["version"]})
+            ar.add_info({"sigma": self.cfg['param']["sigma"]})
+            ar.add_info({"th min": self.cfg['param']["tmin"]})
+            ar.add_info({"th max": self.cfg['param']["tmax"]})
             ar.save()
         return self.tmpl_out("run.html")
 
