@@ -165,7 +165,6 @@ class app(base_app):
             ar.add_file("outputContours.sdp", "outputContours.sdp", info="outputContours.sdp")
             ar.add_info({"version": self.cfg['param']["version"]})
             ar.save()
-
         return self.tmpl_out("run.html")
 
 
