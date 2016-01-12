@@ -171,7 +171,6 @@ class app(base_app):
 
 
 
-
     def run_algo(self, params):
         """
         the core algo runner
