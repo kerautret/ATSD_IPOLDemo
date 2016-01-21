@@ -57,6 +57,21 @@
 
 
  </li>
+<!-- code for slider -->
+<div style="float:left;padding-right:25px">
+<label for="sigma">blur filter size: <font color=blue><i>sigma</i></font>:</label>
+ <input type="text" style="font-family:monospace;text-align:right"
+    size="4" id="sigma" name="sigma" value="3.0" />
+</div>
+<div id="sigma_slider" name="sigma_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+<script type="text/javascript">
+// Turn DIV slider into a slider linked to scale
+$(document).ready(function() {
+      createLinkedSlider('#sigma', '#sigma_slider', 0, 50, 0.1);
+});
+</script>
+<div style="clear:both"> </div>
+<!-- end of code for slider -->
 
       <li> Step 2: set the thickness Alpha Thick Blurred Segments :
         <div style="float:left;padding-right:25px">
@@ -77,21 +92,6 @@
        </li>
 
       <li>
-<!-- code for slider -->
-<div style="float:left;padding-right:25px">
-<label for="sigma">blur filter size: <font color=blue><i>sigma</i></font>:</label>
- <input type="text" style="font-family:monospace;text-align:right"
-    size="4" id="sigma" name="sigma" value="3.0" />
-</div>
-<div id="sigma_slider" name="sigma_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
-<script type="text/javascript">
-// Turn DIV slider into a slider linked to scale
-$(document).ready(function() {
-      createLinkedSlider('#sigma', '#sigma_slider', 0, 50, 0.1);
-});
-</script>
-<div style="clear:both"> </div>
-<!-- end of code for slider -->
 
 </li>
         </ul> 
