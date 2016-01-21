@@ -44,7 +44,7 @@
 <h2>Result</h2>
 
 
-<p>You can download the resulting ATC in  <a href="${app.work_url+'outputATSD.eps'}">eps</a> format, or download the the resulting contours in <a href="${app.work_url+'outputContours.txt'}">txt</a>  format </p>
+<p>You can download the resulting ATC in  <a href="${app.work_url+'res_alphaThickSegments.eps'}">eps</a> format, or download the the resulting contours in <a href="${app.work_url+'outputContours.txt'}">txt</a>  format </p>
 
 
 <div class="gallery" style="height:${height}px">
@@ -57,9 +57,16 @@
       </a>
     </li>
     <li>
-      <a href="${app.work_url+'outputATSD.png'}">outputATC.png
+      <a href="${app.work_url+'outputATSD.png'}">res_contours.png
 	<span>
-	  <img  height="${height}" src="${app.work_url + 'outputATSD.png'}" alt="output ATC" />
+	  <img  height="${height}" src="${app.work_url + res_contours.png'}" alt="output ATC" />
+	</span>
+      </a>
+    </li>
+    <li>
+      <a href="${app.work_url+'outputATSD.png'}">res_alphaThickSegments.png
+	<span>
+	  <img  height="${height}" src="${app.work_url + res_alphaThickSegments.png'}" alt="output ATC" />
 	</span>
       </a>
     </li>

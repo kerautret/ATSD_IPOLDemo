@@ -123,6 +123,7 @@ class app(base_app):
             self.cfg['param']['sigma'] = kwargs['sigma']
             self.cfg['param']['tmin'] = kwargs['tmin']
             self.cfg['param']['tmax'] = kwargs['tmax']
+            self.cfg['param']['thickness'] = kwargs['thickness']
             
             self.cfg.save()
         except ValueError:
@@ -161,12 +162,14 @@ class app(base_app):
             ar.add_file("input_0.png", "original.png", info="uploaded")
             ar.add_file("algoLog.txt", info="algoLog.txt")
             ar.add_file("commands.txt", info="commands.txt")
-            ar.add_file("outputATSD.png", "outputATSD.png", info="outputATSD.png")
+            ar.add_file("res_alphaThickSegments.png", "res_alphaThickSegments.png", info="res_alphaThickSegments.png")
+            ar.add_file("res_contours.png", "res_contours.png", info="res_contours.png")
             ar.add_file("outputContours.txt", "outputContours.txt", info="outputContours.txt")
             ar.add_info({"version": self.cfg['param']["version"]})
             ar.add_info({"sigma": self.cfg['param']["sigma"]})
             ar.add_info({"th min": self.cfg['param']["tmin"]})
             ar.add_info({"th max": self.cfg['param']["tmax"]})
+            ar.add_info({"ATBS thickness": self.cfg['param']["thickness"]})
             ar.save()
         return self.tmpl_out("run.html")
 
@@ -194,10 +197,11 @@ class app(base_app):
         inputWidth = image(self.work_dir + 'input_0.png').size[0]
         inputHeight = image(self.work_dir + 'input_0.png').size[1]
         command_args = ['lineDetectATS'] + \
-                       [ '-i', 'inputNG.pgm', '-o', 'res.eps', '-e', "outputContours.txt"] + \
+                       [ '-i', 'inputNG.pgm', '-o', 'res', '-e', "outputContours.txt"] + \
                        ['-s', str(self.cfg['param']['sigma'])] + \
                        ['--lowTh', str(self.cfg['param']['tmin'])] + \
-                       ['--highTh', str(self.cfg['param']['tmax'])]
+                       ['--highTh', str(self.cfg['param']['tmax'])] + \
+                       ['--displayATS', str(self.cfg['param']['thickness'])]  
                        
         
         f = open(self.work_dir+"algoLog.txt", "a")
@@ -211,12 +215,16 @@ class app(base_app):
         widthDisplay = max(inputWidth, 512)
         fInfo = open(self.work_dir+"algoLog.txt", "a")
         command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
-                        'res.eps', '-geometry', str(widthDisplay)+"x", 'outputATSD.png']
+                        'res_contours.eps', '-geometry', str(widthDisplay)+"x", 'res_contours.png']
         self.runCommand(command_args, None, fInfo)
-        shutil.copy(self.work_dir + os.path.join("res.eps"), 
-                    self.work_dir + os.path.join("outputATSD.eps"))
+        command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
+                        'res_alphaThickSegments.eps', '-geometry', str(widthDisplay)+"x", 'res_alphaThickSegments.png']
+        self.runCommand(command_args, None, fInfo)
+        #shutil.copy(self.work_dir + os.path.join("res_contours.eps"), 
+        #            self.work_dir + os.path.join("outputATSD.eps"))
         fInfo.close()
         
+
         ## ------
         # Save version num:
         fVersion = open(self.work_dir+"version.txt", "w")
