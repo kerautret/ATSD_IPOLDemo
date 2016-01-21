@@ -58,6 +58,21 @@
 
  </li>
 
+      <li> Step 2: set the thickness Alpha Thick Blurred Segments :
+        <div style="float:left;padding-right:25px">
+               <label for="thickness">ATBS thickness value <font color=blue><i>thickness</i></font>:</label>
+               <input type="text" style="font-family:monospace;text-align:right"
+                 size="4" id="thickness" name="thickness" value="2" />
+             </div>
+             <div id="thickness_slider" name="thickness_slider" style="width:280px;float:left;margin-top:4px;font-size:10pt"></div>
+             <script type="text/javascript">
+             // Turn DIV slider into a slider linked to scale
+             $(document).ready(function() {
+                   createLinkedSlider('#thickness', '#thickness_slider', 0, 255, 1);
+             });
+             </script>
+             <div style="clear:both"> </div>
+        </li>
         </ul>
        </li>
 
