@@ -215,10 +215,10 @@ class app(base_app):
         widthDisplay = max(inputWidth, 512)
         fInfo = open(self.work_dir+"algoLog.txt", "a")
         command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
-                        'res_contours.eps', '-geometry', str(widthDisplay)+"x", 'res_contours.png']
+                        self.work_dir +'res_contours.eps', '-geometry', str(widthDisplay)+"x", self.work_dir +'res_contours.png']
         self.runCommand(command_args, None, fInfo)
         command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
-                        'res_alphaThickSegments.eps', '-geometry', str(widthDisplay)+"x", 'res_alphaThickSegments.png']
+                        self.work_dir +'res_alphaThickSegments.eps', '-geometry', str(widthDisplay)+"x", self.work_dir +'res_alphaThickSegments.png']
         self.runCommand(command_args, None, fInfo)
         #shutil.copy(self.work_dir + os.path.join("res_contours.eps"), 
         #            self.work_dir + os.path.join("outputATSD.eps"))
