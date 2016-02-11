@@ -211,11 +211,11 @@ class app(base_app):
         ## ------
         ## process 4: compute curvature on canny edges.
         ## ------
-        #fInfoCurvature = open(self.work_dir+"algoCurvatureLog.txt", "a")
-        #command_args = ['mstCurvatureFilter', '-i', 'outputContours.txt', '-m','100']+\ 
-        #               ['-o', 'result', '-d', '2', '-M' ]
-        #cmd = self.runCommand(command_args, None, fInfoCurvature)
-        #fInfoCurvature.close()
+        fInfoCurvature = open(self.work_dir+"algoCurvatureLog.txt", "a")
+        command_args = ['mstCurvatureFilter', '-i', 'outputContours.txt', '-m','100']+\ 
+                       ['-o', 'result', '-d', '2', '-M' ]
+        cmd = self.runCommand(command_args, None, fInfoCurvature)
+        fInfoCurvature.close()
 
 
 
