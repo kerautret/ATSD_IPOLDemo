@@ -229,14 +229,6 @@ class app(base_app):
         self.runCommand(command_args, None, fInfo)
         command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
                         'res_alphaThickSegments.eps', '-geometry', str(widthDisplay)+"x", 'res_alphaThickSegments.png']
-        self.runCommand(command_args, None, fInfo)
-        command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
-                        'resultCurvature.eps', '-geometry', str(widthDisplay)+"x", 'resultCurvature.png']
-        self.runCommand(command_args, None, fInfo)
-        command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
-                        'resultUnbiasedVarianceCurvature.eps', '-geometry', str(widthDisplay)+"x", \ 
-                        'resultUnbiasedVarianceCurvature.png']
-        self.runCommand(command_args, None, fInfo)
 
 
         #shutil.copy(self.work_dir + os.path.join("res_contours.eps"), 
