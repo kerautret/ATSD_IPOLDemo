@@ -208,6 +208,16 @@ class app(base_app):
         cmd = self.runCommand(command_args, None, f)
         f.close()
 
+        ## ------
+        ## process 4: compute curvature on canny edges.
+        ## ------
+        fInfoCurvature = open(self.work_dir+"algoCurvatureLog.txt", "a")
+        command_args = ['mstCurvatureFilter', '-i', 'outputContours.txt', '-m','100']+\ 
+                       ['-o', 'result', 'd', '2', '-M' ]
+        cmd = self.runCommand(command_args, None, fInfoCurvature)
+        fInfoCurvature.close()
+
+
 
         ## ---------
         ## process 3: converting to output result
@@ -220,10 +230,23 @@ class app(base_app):
         command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
                         'res_alphaThickSegments.eps', '-geometry', str(widthDisplay)+"x", 'res_alphaThickSegments.png']
         self.runCommand(command_args, None, fInfo)
+        command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
+                        'resultCurvature.eps', '-geometry', str(widthDisplay)+"x", 'resultCurvature.png']
+        self.runCommand(command_args, None, fInfo)
+        command_args = ['convert.sh', '-background', '#FFFFFF', '-flatten', \
+                        'resultUnbiasedVarianceCurvature.eps', '-geometry', str(widthDisplay)+"x", \ 
+                        'resultUnbiasedVarianceCurvature.png']
+        self.runCommand(command_args, None, fInfo)
+        
+        
+
         #shutil.copy(self.work_dir + os.path.join("res_contours.eps"), 
         #            self.work_dir + os.path.join("outputATSD.eps"))
         fInfo.close()
         
+
+
+
 
         ## ------
         # Save version num:
