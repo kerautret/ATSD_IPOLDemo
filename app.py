@@ -164,6 +164,8 @@ class app(base_app):
             ar.add_file("commands.txt", info="commands.txt")
             ar.add_file("res_alphaThickSegments.png", "res_alphaThickSegments.png", info="res_alphaThickSegments.png")
             ar.add_file("res_contours.png", "res_contours.png", info="res_contours.png")
+            ar.add_file("resultUnbiasedVarianceCurvature.png", "resultUnbiasedVarianceCurvature.png", info="resultUnbiasedVarianceCurvature.png")
+            ar.add_file("resultCurvature.png", "resultCurvature.png", info = "resultCurvature.png")
             ar.add_file("outputContours.txt", "outputContours.txt", info="outputContours.txt")
             ar.add_info({"version": self.cfg['param']["version"]})
             ar.add_info({"sigma": self.cfg['param']["sigma"]})
